@@ -10,3 +10,5 @@ install:
 	sudo apt-get install python3
 	sudo apt-get install wget
 	sudo apt-get install python3-bs4
+clean:
+	rm wget*

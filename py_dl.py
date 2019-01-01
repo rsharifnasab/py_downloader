@@ -71,9 +71,11 @@ def add_batch():
 
 
 def start_wget():
-    print("starting wget . .. ")
-    wg_comand  = "wget -c -i list.txt"
-    os.system(wg_comand)
+    print("starting wget . .. \n downloading to  ~/Downloads/dl_py/")
+    #-O ~/Downloads/dl_py/
+    wg_command =  "aria2c -i list.txt  -c -d ~/Downloads/aria_dl/ -j1 "
+    wg_command  = "wget -c -i list.txt -P ~/Downloads/dl_py/"
+    os.system(wg_command)
 
 def print_list():
     print()
