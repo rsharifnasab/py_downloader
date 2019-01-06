@@ -24,7 +24,6 @@ def is_downloadable(url):
     return True
 
 
-
 #def one_dl(pre_url , every_link):
 #    print ("downloading:\n",pre_url+every_link)
 #    try:
@@ -34,14 +33,43 @@ def is_downloadable(url):
 #       print("error downloading file")
 
 
-
 def add_single(inp_url = None):
     if(inp_url == None): inp_url = input("pls enter a url\n")
     try:
         list = open('list.txt','a')
         list.write(inp_url+ "\n")
-        print("url added to list")
+        print(inp_url ," added to list")
     except: print("error in appending to list    ")
+
+
+
+
+def add_multi_single():
+    print("now enter links, separated by enter")
+    while(1==1):
+        inp_url = input("pls enter a url,done = d\n")
+        if inp_url.lower() in ["done","d","end","e","exit"] : break;
+        add_single(inp_url)
+
+
+
+def auto_add():
+    regex = r"[Ss]\d{1,2}[Ee](\d{1,2})";
+    main_url = input("pls enter first episode link here:\n")
+    m = re.search(regex, main_url)
+    if m == None :
+        print("no serial found")
+    else :
+        all = m.group()
+        first_ep =   int(all[4:6])
+        n = int (input("last episode?: "))
+        for i in range(n+1 - first_ep ):
+            final = main_url
+            episode = str (first_ep + i)
+            if int(episode) < 10 : episode = "0" + episode
+            episode = all[0:4] + episode
+            final = re.sub(regex, episode, final)
+            add_single(final)
 
 
 
@@ -73,7 +101,7 @@ def add_batch():
 def start_wget():
     print("starting wget . .. \n downloading to  ~/Downloads/dl_py/")
     #-O ~/Downloads/dl_py/
-    wg_command =  "aria2c -i list.txt  -c -d ~/Downloads/aria_dl/ -j1 "
+    aria_command =  "aria2c -i list.txt  -c -d ~/Downloads/aria_dl/ -j1 "
     wg_command  = "wget -c -i list.txt -P ~/Downloads/dl_py/"
     os.system(wg_command)
 
@@ -88,12 +116,16 @@ def edit_list():
 
 while (1==1):
 
-    command = input("\nwhat do you want to do?\nadd html Batch = b \nSingle file = s  \nContinue Download = d\nPrint queue = p\nEdit queue = e\n")
-    command = command.lower()
+    Command = input("\nwhat do you want to do?\nadd html Batch = b \nSingle file = s\nmulti single = bs  \nContinue Download = c\nPrint queue = p\nEdit queue = e\nAuto serial find = a\n")
+    command = Command.lower()
 
     if command in ["continue" ,"download" , "d" , "c" ] : start_wget();
 
     elif command in ["single", "s"] : add_single()
+
+    elif command in ["a","auto","ad"]: auto_add()
+
+    elif command in ["bs","multi","ms"]: add_multi_single()
 
     elif command in ["batch" , "b"] : add_batch()
 
@@ -101,4 +133,6 @@ while (1==1):
 
     elif command in ["edit" , "e"] : edit_list()
 
-    else : exit()
+    elif command in ["quit" , "q" , 'exit', "x", "ex"] : exit()
+
+    else : os.system(Command)
