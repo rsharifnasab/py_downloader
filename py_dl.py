@@ -2,7 +2,7 @@
 
 import os
 import subprocess as sp
-import requests
+#import requests
 from bs4 import BeautifulSoup
 import urllib
 import re
