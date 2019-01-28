@@ -100,7 +100,7 @@ def add_batch():
 
 
 def start_wget():
-    print("starting wget . .. \n downloading to :",end = "")
+    print("starting wget . .. \n downloading to :")
     os.system("pwd")
     # -O ~/Downloads/dl_py/
     aria_command = "aria2c -i list.txt  -c -d ~/Downloads/aria_dl/ -j1 "
