@@ -107,6 +107,13 @@ def start_wget():
     wg_command = "wget -c -i list.txt "
     os.system(wg_command)
 
+def start_aria():
+    print("starting aria . .. \n downloading to :")
+    os.system("pwd")
+    # -O ~/Downloads/dl_py/
+    aria_command = "aria2c -i list.txt  -c -d ~/Downloads/aria_dl/ -j1 "
+    wg_command = "wget -c -i list.txt "
+    os.system(aria_command)
 
 def print_list():
     print()
@@ -117,9 +124,13 @@ def edit_list():
     os.system("nano list.txt")
 
 
-def shutdown():
-    start_wget()
-    os.system("shutdown")
+def shutdown(order):
+    if order == "wget" :start_wget()
+    if order == "aria" :start_aria()
+    os.system("shutdown 10")
+
+def clear():
+    os.system('echo "" > list.txt')
 
 # - - -- main program - - - -
 
@@ -132,8 +143,14 @@ while (1 == 1):
     if command in ["continue", "download", "d", "c"]:
         start_wget()
 
+    elif command in ["aria", "ac"]:
+        start_aria()
+
+    elif comman in ["ariashut" , "ashut"]:
+        shutdown("aria")
+
     elif command in ["shut", "cs", "csh", "shutd"]:
-        shutdown()
+        shutdown("wget")
 
     elif command in ["single", "s"]:
         add_single()
@@ -155,6 +172,9 @@ while (1 == 1):
 
     elif command in ["quit", "q", 'exit', "x", "ex"]:
         exit()
+
+    elif command in ["clear"]:
+        clear()
 
     else:
         os.system(Command)
