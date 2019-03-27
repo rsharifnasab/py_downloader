@@ -146,7 +146,7 @@ while (1 == 1):
     elif command in ["aria", "ac"]:
         start_aria()
 
-    elif comman in ["ariashut" , "ashut"]:
+    elif command in ["ariashut" , "ashut"]:
         shutdown("aria")
 
     elif command in ["shut", "cs", "csh", "shutd"]:
