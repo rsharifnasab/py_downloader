@@ -99,6 +99,27 @@ def add_batch():
             add_single(pre_url+every_link)
 
 
+
+def add_batch_saved():
+    print("parsing a.html...")
+    f = open("a.html", "r")
+    page = f.read()
+    bs = BeautifulSoup(page, features='lxml')
+
+    keyword = input("pls enter keyword to search: (a for nothing) ")
+    if keyword == "a" or keyword == "":
+        keyword = ""
+
+    pre_url = ""
+
+    for link in bs.findAll('a'):
+        every_link = link.get('href')
+        if keyword in every_link:
+            add_single(pre_url+every_link)
+
+
+
+
 def start_wget():
     print("starting wget . .. \n downloading to :")
     os.system("pwd")
@@ -163,6 +184,9 @@ while (1 == 1):
 
     elif command in ["batch", "b"]:
         add_batch()
+
+    elif command in ["abs", "saved"]:
+        add_batch_saved()
 
     elif command in ["print", "p"]:
         print_list()
